@@ -15,7 +15,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val service = CvSourceServiceBuilder().build()
-        val disposable = service.getCv("takecare", "861509cde97d41a23a1cfa9bb9664b41")
+        val disposable = service.getCv(
+            "takecare",
+            "861509cde97d41a23a1cfa9bb9664b41",
+            ""
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(

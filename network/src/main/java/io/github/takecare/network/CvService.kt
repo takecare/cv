@@ -2,7 +2,6 @@ package io.github.takecare.network
 
 import io.github.takecare.network.model.Cv
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -10,10 +9,11 @@ import retrofit2.http.Path
 
 interface CvService {
 
-    @GET("{user}/{gistId}/raw")
-    fun _getCv(@Path("user") username: String, @Path("gistId") gistId: String): Call<Cv>
-
-    @GET("{user}/{gistId}/raw")
-    fun getCv(@Path("user") username: String, @Path("gistId") gistId: String): Single<Cv>
+    @GET("{user}/{gistId}/raw/{revision}")
+    fun getCv(
+        @Path("user") username: String,
+        @Path("gistId") gistId: String,
+        @Path("revision") revision: String
+    ): Single<Cv>
 }
 
