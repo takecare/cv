@@ -2,6 +2,9 @@ package io.github.takecare.cv
 
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import io.github.takecare.network.CvService
@@ -10,6 +13,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+
+private const val PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN = 20
 
 class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
 
@@ -30,29 +35,29 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
                         onError = { Log.e("RUI", "$it") }
                 )
 
+        viewpager.adapter = TabsAdapter(supportFragmentManager)
+        tablayout.setupWithViewPager(viewpager)
+
         appbar_layout.addOnOffsetChangedListener(this)
         maxScrollSize = appbar_layout.totalScrollRange
     }
 
-    override fun onOffsetChanged(appBarLayout: AppBarLayout, i: Int) {
+    override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         if (maxScrollSize == 0) {
             maxScrollSize = appBarLayout.totalScrollRange
         }
 
-        val percentage = Math.abs(i) * 100 / maxScrollSize
-
-        if (percentage >= 20 && isAvatarDisplayed) {
+        val percentageOfLayoutHidden = Math.abs(verticalOffset) * 100 / maxScrollSize
+        if (percentageOfLayoutHidden >= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && isAvatarDisplayed) {
             isAvatarDisplayed = false
-
             profile_image.animate()
                     .scaleY(0f).scaleX(0f)
                     .setDuration(200)
                     .start()
         }
 
-        if (percentage <= 20 && !isAvatarDisplayed) {
+        if (percentageOfLayoutHidden <= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && !isAvatarDisplayed) {
             isAvatarDisplayed = true
-
             profile_image.animate()
                     .scaleY(1f).scaleX(1f)
                     .start()
@@ -62,5 +67,25 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
     override fun onDestroy() {
         disposable.dispose()
         super.onDestroy()
+    }
+}
+
+private const val NUM_FRAGMENTS = 2
+private class TabsAdapter internal constructor(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+
+    override fun getCount(): Int {
+        return NUM_FRAGMENTS
+    }
+
+    override fun getItem(position: Int): Fragment {
+        return if (position == 0) {
+            CoverFragment.newInstance()
+        } else {
+            ExperienceFragment.newInstance()
+        }
+    }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return "Tab " + position.toString()
     }
 }
