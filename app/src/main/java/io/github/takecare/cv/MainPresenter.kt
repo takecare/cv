@@ -2,6 +2,8 @@ package io.github.takecare.cv
 
 class MainPresenter {
 
+
+
 }
 
 interface View {
