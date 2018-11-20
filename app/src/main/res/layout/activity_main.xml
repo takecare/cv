@@ -35,10 +35,10 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:minHeight="?attr/actionBarSize"
-      app:layout_scrollFlags="scroll|enterAlways|snap"
-      android:background="@color/transparent" />
+      app:layout_scrollFlags="scroll|enterAlways|snap" />
 
     <LinearLayout
+      android:id="@+id/materialup.title_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
@@ -49,7 +49,7 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title"
+        android:text="Your name"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
       <TextView
@@ -57,14 +57,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:text="subtitle"
+        android:text="That\'s right boss!"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:textColor="@android:color/white" />
     </LinearLayout>
 
     <android.support.design.widget.TabLayout
       android:id="@+id/tablayout"
-      android:layout_width="fill_parent"
+      android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       app:tabIndicatorColor="?android:attr/textColorPrimaryInverse"
       app:tabIndicatorHeight="4dp"
