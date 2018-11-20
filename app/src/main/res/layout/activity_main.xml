@@ -7,11 +7,13 @@
   tools:context=".MainActivity">
 
   <android.support.design.widget.AppBarLayout
+    android:id="@+id/appbar_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <android.support.design.widget.CollapsingToolbarLayout
+      android:id="@+id/collapsing_toolbar"
       android:layout_width="match_parent"
       android:layout_height="200dp"
       app:expandedTitleMarginEnd="64dp"
@@ -29,15 +31,14 @@
     </android.support.design.widget.CollapsingToolbarLayout>
 
     <android.support.v7.widget.Toolbar
-      android:id="@+id/materialup.toolbar"
+      android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:minHeight="?attr/actionBarSize"
       app:layout_scrollFlags="scroll|enterAlways|snap"
-      app:theme="@style/ThemeOverlay.AppCompat.Light" />
+      android:background="@color/transparent" />
 
     <LinearLayout
-      android:id="@+id/materialup.title_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
@@ -62,7 +63,7 @@
     </LinearLayout>
 
     <android.support.design.widget.TabLayout
-      android:id="@+id/materialup.tabs"
+      android:id="@+id/tablayout"
       android:layout_width="fill_parent"
       android:layout_height="?attr/actionBarSize"
       app:tabIndicatorColor="?android:attr/textColorPrimaryInverse"
