@@ -29,9 +29,9 @@ class CvSourceServiceBuilder(
     fun build(): CvRetrofitService {
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi()))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(okHttpClient())
+            .client(okHttpClient)
             .build()
         return retrofit.create<CvRetrofitService>(CvRetrofitService::class.java)
     }
