@@ -26,13 +26,13 @@ class CvSourceServiceBuilder(
     private val baseUrl: String = BASE_URL
 ) {
 
-    fun build(): CvService {
+    fun build(): CvRetrofitService {
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(MoshiConverterFactory.create(moshi()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(okHttpClient)
+            .client(okHttpClient())
             .build()
-        return retrofit.create<CvService>(CvService::class.java)
+        return retrofit.create<CvRetrofitService>(CvRetrofitService::class.java)
     }
 }
