@@ -28,7 +28,7 @@ class CoverFragment : Fragment() {
         recyclerview.layoutManager = LinearLayoutManager(activity)
         recyclerview.adapter = CoverAdapter().apply {
             update(listOf(
-                    Cover.Letter(""),
+                    Cover.Letter("letter"),
                     Cover.Link("github", "https://www.google.pt", 0),
                     Cover.Link("personal webpage", "https://www.google.pt", 0),
                     Cover.Knowledge("knowledge 1"),
