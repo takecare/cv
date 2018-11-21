@@ -12,10 +12,10 @@ private fun retrofitService(): CvRetrofitService {
 }
 
 class CvService(
-    private val cvRetrofitService: CvRetrofitService = retrofitService(),
-    private val username: String = USERNAME,
-    private val gistId: String = GIST_ID,
-    private val fileName: String = FILE_NAME
+        private val cvRetrofitService: CvRetrofitService = retrofitService(),
+        private val username: String = USERNAME,
+        private val gistId: String = GIST_ID,
+        private val fileName: String = FILE_NAME
 ) {
 
     fun getCv(): Single<Cv> {

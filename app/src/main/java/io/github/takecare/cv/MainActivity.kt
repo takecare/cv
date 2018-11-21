@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
 }
 
 private const val NUM_FRAGMENTS = 2
+
 private class TabsAdapter internal constructor(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
