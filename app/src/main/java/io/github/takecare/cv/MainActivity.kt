@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import io.github.takecare.cv.cover.CoverFragment
+import io.github.takecare.cv.experience.ExperienceFragment
 import io.github.takecare.network.CvService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

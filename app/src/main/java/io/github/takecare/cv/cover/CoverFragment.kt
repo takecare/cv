@@ -1,4 +1,4 @@
-package io.github.takecare.cv
+package io.github.takecare.cv.cover
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.github.takecare.cv.cover.Cover
+import io.github.takecare.cv.R
 import kotlinx.android.synthetic.main.fragment_cover.*
 import kotlinx.android.synthetic.main.item_cover.view.textview as cover_textview
 import kotlinx.android.synthetic.main.item_knowledge.view.textview as knowledge_textview
@@ -27,14 +27,16 @@ class CoverFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         recyclerview.layoutManager = LinearLayoutManager(activity)
         recyclerview.adapter = CoverAdapter().apply {
-            update(listOf(
-                    Cover.Letter("letter"),
-                    Cover.Link("github", "https://www.google.pt", 0),
-                    Cover.Link("personal webpage", "https://www.google.pt", 0),
-                    Cover.Knowledge("knowledge 1"),
-                    Cover.Knowledge("knowledge 2"),
-                    Cover.Knowledge("knowledge 3")
-            ))
+            update(
+                listOf(
+                    CoverItemViewModel.Letter("letter"),
+                    CoverItemViewModel.Link("github", "https://www.google.pt", 0),
+                    CoverItemViewModel.Link("personal webpage", "https://www.google.pt", 0),
+                    CoverItemViewModel.Knowledge("knowledge 1"),
+                    CoverItemViewModel.Knowledge("knowledge 2"),
+                    CoverItemViewModel.Knowledge("knowledge 3")
+                )
+            )
             notifyDataSetChanged()
         }
     }
@@ -42,7 +44,7 @@ class CoverFragment : Fragment() {
 
 class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() {
 
-    private val data: MutableList<Cover> = mutableListOf()
+    private val data: MutableList<CoverItemViewModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): CoverViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -64,9 +66,9 @@ class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when (data[position]) {
-            is Cover.Letter -> CoverViewType.LETTER
-            is Cover.Link -> CoverViewType.LINK
-            is Cover.Knowledge -> CoverViewType.KNOWLEDGE
+            is CoverItemViewModel.Letter -> CoverViewType.LETTER
+            is CoverItemViewModel.Link -> CoverViewType.LINK
+            is CoverItemViewModel.Knowledge -> CoverViewType.KNOWLEDGE
         }.ordinal
     }
 
@@ -76,13 +78,13 @@ class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() {
 
     override fun onBindViewHolder(viewHolder: CoverViewHolder, position: Int) {
         when (viewHolder) {
-            is CoverViewHolder.LetterViewHolder -> viewHolder.bind(data[position] as Cover.Letter)
-            is CoverViewHolder.LinkViewHolder -> viewHolder.bind(data[position] as Cover.Link)
-            is CoverViewHolder.KnowledgeViewHolder -> viewHolder.bind(data[position] as Cover.Knowledge)
+            is CoverViewHolder.LetterViewHolder -> viewHolder.bind(data[position] as CoverItemViewModel.Letter)
+            is CoverViewHolder.LinkViewHolder -> viewHolder.bind(data[position] as CoverItemViewModel.Link)
+            is CoverViewHolder.KnowledgeViewHolder -> viewHolder.bind(data[position] as CoverItemViewModel.Knowledge)
         }
     }
 
-    fun update(items: List<Cover>) {
+    fun update(items: List<CoverItemViewModel>) {
         data.addAll(items)
     }
 }
@@ -91,21 +93,21 @@ sealed class CoverViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     class LetterViewHolder(view: View) : CoverViewHolder(view) {
 
-        fun bind(item: Cover.Letter) {
+        fun bind(item: CoverItemViewModel.Letter) {
             itemView.cover_textview.text = item.text
         }
     }
 
     class LinkViewHolder(view: View) : CoverViewHolder(view) {
 
-        fun bind(item: Cover.Link) {
+        fun bind(item: CoverItemViewModel.Link) {
             itemView.link_textview.text = item.text
         }
     }
 
     class KnowledgeViewHolder(view: View) : CoverViewHolder(view) {
 
-        fun bind(item: Cover.Knowledge) {
+        fun bind(item: CoverItemViewModel.Knowledge) {
             itemView.knowledge_textview.text = item.text
         }
     }
