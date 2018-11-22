@@ -13,6 +13,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 private const val PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN = 20
 
@@ -22,18 +23,22 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
     private var isAvatarDisplayed = true
     private var maxScrollSize = 0
 
+    @Inject
+    lateinit var cvService: CvService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val service = CvService()
-        disposable = service.getCv()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { Log.d("RUI", "$it") },
-                        onError = { Log.e("RUI", "$it") }
-                )
+        injectDependencies()
+
+        disposable = cvService.getCv()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { Log.d("RUI", "$it") },
+                onError = { Log.e("RUI", "$it") }
+            )
 
         viewpager.adapter = TabsAdapter(supportFragmentManager)
         tablayout.setupWithViewPager(viewpager)
@@ -51,16 +56,16 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
         if (percentageOfLayoutHidden >= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && isAvatarDisplayed) {
             isAvatarDisplayed = false
             profile_image.animate()
-                    .scaleY(0f).scaleX(0f)
-                    .setDuration(200)
-                    .start()
+                .scaleY(0f).scaleX(0f)
+                .setDuration(200)
+                .start()
         }
 
         if (percentageOfLayoutHidden <= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && !isAvatarDisplayed) {
             isAvatarDisplayed = true
             profile_image.animate()
-                    .scaleY(1f).scaleX(1f)
-                    .start()
+                .scaleY(1f).scaleX(1f)
+                .start()
         }
     }
 
@@ -70,9 +75,14 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
     }
 }
 
+fun MainActivity.injectDependencies() {
+    (application as CvApplication).injector.inject(this)
+}
+
 private const val NUM_FRAGMENTS = 2
 
-private class TabsAdapter internal constructor(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+private class TabsAdapter internal constructor(fragmentManager: FragmentManager) :
+    FragmentPagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
         return NUM_FRAGMENTS
