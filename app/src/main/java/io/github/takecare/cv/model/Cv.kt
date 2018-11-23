@@ -26,9 +26,9 @@ data class Experience(
 
 data class ExperienceItem(
     val name: String,
-    val logoUrl: String,
+    val logoUrl: String?,
     val role: String,
     val from: Date,
-    val to: Date,
+    val to: Date?,
     val description: String
 )

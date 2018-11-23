@@ -8,7 +8,6 @@ class CvApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         injector = DaggerApplicationInjector.builder().build()
     }
 }

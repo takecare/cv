@@ -15,10 +15,16 @@ interface CvRepository {
     fun cv(): Single<Cv>
 }
 
-class CvRepositoryImpl(private val cvService: CvService) : CvRepository {
+data class Cached<T>(var value: T? = null)
+
+class CvRepositoryImpl(
+    private val cvService: CvService
+) : CvRepository {
+
+    private val cache = Cached<Cv>()
 
     override fun cv(): Single<Cv> {
-        return cvService.getCv()
+        val toCache = cvService.getCv()
             .map { networkModel ->
                 Cv(
                     networkModel.name,
@@ -28,13 +34,24 @@ class CvRepositoryImpl(private val cvService: CvService) : CvRepository {
                     networkModel.experience()
                 )
             }
+            .cache()
+        return cache(toCache)
+    }
+
+    private fun cache(single: Single<Cv>): Single<Cv> {
+        cache.value?.let {
+            return Single.just(it)
+        }
+        return single
+            .doOnSuccess { cache.value = it }
+            .doOnError { cache.value = null }
     }
 }
 
 private fun NetworkCv.cover(): Cover {
     val items = this.topcis.map { it.toCoverItem() }.toMutableList()
     items.add(CoverItem.Letter(this.cover))
-    items.add(CoverItem.Link(this.personalUrl, this.personalUrl)) // FIXME text
+    items.add(CoverItem.Link(this.personalUrl, this.personalUrl)) // FIXME include readable text instead of url?
     items.add(CoverItem.Link(this.githubUsername, this.githubUsername)) // TODO transform to proper link
     return Cover(items)
 }

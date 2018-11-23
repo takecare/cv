@@ -4,10 +4,8 @@ import dagger.Component
 import io.github.takecare.cv.cover.CoverFragment
 import io.github.takecare.cv.experience.ExperienceFragment
 
-@Component(modules = [NetworkModule::class])
+@Component(modules = [CvModule::class])
 interface ApplicationInjector {
-
-    fun inject(cvApplication: CvApplication)
 
     fun inject(activity: MainActivity)
 
