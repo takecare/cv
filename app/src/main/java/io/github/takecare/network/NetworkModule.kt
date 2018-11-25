@@ -8,6 +8,6 @@ class NetworkModule {
 
     @Provides
     fun provideCvService(): CvService {
-        return CvService()
+        return CvServiceImpl()
     }
 }

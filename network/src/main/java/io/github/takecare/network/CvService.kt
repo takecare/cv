@@ -11,14 +11,19 @@ private fun retrofitService(): CvRetrofitService {
     return CvSourceServiceBuilder().build()
 }
 
-class CvService(
-        private val cvRetrofitService: CvRetrofitService = retrofitService(),
-        private val username: String = USERNAME,
-        private val gistId: String = GIST_ID,
-        private val fileName: String = FILE_NAME
-) {
+interface CvService {
 
-    fun getCv(): Single<Cv> {
+    fun getCv(): Single<Cv>
+}
+
+class CvServiceImpl(
+    private val cvRetrofitService: CvRetrofitService = retrofitService(),
+    private val username: String = USERNAME,
+    private val gistId: String = GIST_ID,
+    private val fileName: String = FILE_NAME
+) : CvService {
+
+    override fun getCv(): Single<Cv> {
         return cvRetrofitService.getLatest(username, gistId, fileName)
     }
 }
