@@ -51,8 +51,6 @@ class CvRepositoryImpl(
 private fun NetworkCv.cover(): Cover {
     val items = this.topcis.map { it.toCoverItem() }.toMutableList()
     items.add(CoverItem.Letter(this.cover))
-    items.add(CoverItem.Link(this.personalUrl, this.personalUrl)) // FIXME include readable text instead of url?
-    items.add(CoverItem.Link(this.githubUsername, this.githubUsername)) // TODO transform to proper link
     return Cover(items)
 }
 

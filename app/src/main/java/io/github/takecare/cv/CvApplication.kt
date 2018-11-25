@@ -4,10 +4,11 @@ import android.app.Application
 
 class CvApplication : Application() {
 
-    lateinit var injector: ApplicationInjector
+    lateinit var component: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
-        injector = DaggerApplicationInjector.builder().build()
+        component = DaggerApplicationInjector.builder()
+            .build()
     }
 }

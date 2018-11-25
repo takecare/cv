@@ -43,12 +43,12 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
     override fun onResume() {
         super.onResume()
         disposable = cvRepository.cv()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { Log.d("RUI", "$it") },
-                        onError = { Log.e("RUI", "$it") }
-                )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { Log.d("RUI", "$it") },
+                onError = { Log.e("RUI", "$it") }
+            )
     }
 
     override fun onPause() {
@@ -65,16 +65,16 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
         if (percentageOfLayoutHidden >= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && isAvatarDisplayed) {
             isAvatarDisplayed = false
             profile_image.animate()
-                    .scaleY(0f).scaleX(0f)
-                    .setDuration(200)
-                    .start()
+                .scaleY(0f).scaleX(0f)
+                .setDuration(200)
+                .start()
         }
 
         if (percentageOfLayoutHidden <= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && !isAvatarDisplayed) {
             isAvatarDisplayed = true
             profile_image.animate()
-                    .scaleY(1f).scaleX(1f)
-                    .start()
+                .scaleY(1f).scaleX(1f)
+                .start()
         }
     }
 
@@ -85,13 +85,18 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
 }
 
 fun MainActivity.injectDependencies() {
-    (application as CvApplication).injector.inject(this)
+    DaggerActivityComponent.builder()
+        //.mainActivityModule(MainActivityModule()) // TODO remove if not needed
+        .build()
+        .inject(this)
+
 }
 
 private const val NUM_FRAGMENTS = 2
 
-private class TabsAdapter internal constructor(fragmentManager: FragmentManager) :
-        FragmentPagerAdapter(fragmentManager) {
+private class TabsAdapter internal constructor(
+    fragmentManager: FragmentManager
+) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
         return NUM_FRAGMENTS
