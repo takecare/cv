@@ -4,6 +4,7 @@ import java.util.*
 
 data class Cv(
     val name: String,
+    val photoUrl: String,
     val githubUsername: String,
     val personalUrl: String,
     val cover: Cover,

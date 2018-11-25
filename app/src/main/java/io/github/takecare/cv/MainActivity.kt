@@ -6,26 +6,20 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import io.github.takecare.cv.cover.CoverFragment
 import io.github.takecare.cv.experience.ExperienceFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 private const val PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN = 20
 
-class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
+class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, MainView {
 
-    private lateinit var disposable: Disposable
     private var isAvatarDisplayed = true
     private var maxScrollSize = 0
 
     @Inject
-    lateinit var cvRepository: CvRepository
+    lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,18 +36,21 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
 
     override fun onResume() {
         super.onResume()
-        disposable = cvRepository.cv()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onSuccess = { Log.d("RUI", "$it") },
-                onError = { Log.e("RUI", "$it") }
-            )
+        presenter.startPresenting(this)
     }
 
     override fun onPause() {
-        disposable.dispose()
         super.onPause()
+        presenter.stopPresenting()
+    }
+
+    override fun show(viewModel: MainViewModel) {
+        name.text = viewModel.name
+        // TODO load image into profile_image
+    }
+
+    override fun showError(throwable: Throwable) {
+        // TODO: showError not implemented
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
@@ -65,37 +62,32 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
         if (percentageOfLayoutHidden >= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && isAvatarDisplayed) {
             isAvatarDisplayed = false
             profile_image.animate()
-                .scaleY(0f).scaleX(0f)
-                .setDuration(200)
-                .start()
+                    .scaleY(0f).scaleX(0f)
+                    .setDuration(200)
+                    .start()
         }
 
         if (percentageOfLayoutHidden <= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && !isAvatarDisplayed) {
             isAvatarDisplayed = true
             profile_image.animate()
-                .scaleY(1f).scaleX(1f)
-                .start()
+                    .scaleY(1f).scaleX(1f)
+                    .start()
         }
-    }
-
-    override fun onDestroy() {
-        disposable.dispose()
-        super.onDestroy()
     }
 }
 
 fun MainActivity.injectDependencies() {
     DaggerActivityComponent.builder()
-        //.mainActivityModule(MainActivityModule()) // TODO remove if not needed
-        .build()
-        .inject(this)
+            //.mainActivityModule(MainActivityModule()) // TODO remove if not needed
+            .build()
+            .inject(this)
 
 }
 
 private const val NUM_FRAGMENTS = 2
 
 private class TabsAdapter internal constructor(
-    fragmentManager: FragmentManager
+        fragmentManager: FragmentManager
 ) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
