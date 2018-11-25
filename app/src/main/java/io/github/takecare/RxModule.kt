@@ -1,4 +1,4 @@
-package io.github.takecare.cv
+package io.github.takecare
 
 import dagger.Module
 import dagger.Provides

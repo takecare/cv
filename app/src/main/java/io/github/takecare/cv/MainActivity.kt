@@ -10,6 +10,7 @@ import android.util.Log
 import io.github.takecare.cv.cover.CoverFragment
 import io.github.takecare.cv.experience.ExperienceFragment
 import io.github.takecare.network.ImageLoader
+import io.github.takecare.network.ImageLoaderModule
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -68,32 +69,32 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
         if (percentageOfLayoutHidden >= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && isAvatarDisplayed) {
             isAvatarDisplayed = false
             profile_image.animate()
-                .scaleY(0f).scaleX(0f)
-                .setDuration(200)
-                .start()
+                    .scaleY(0f).scaleX(0f)
+                    .setDuration(200)
+                    .start()
         }
 
         if (percentageOfLayoutHidden <= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && !isAvatarDisplayed) {
             isAvatarDisplayed = true
             profile_image.animate()
-                .scaleY(1f).scaleX(1f)
-                .start()
+                    .scaleY(1f).scaleX(1f)
+                    .start()
         }
     }
 }
 
 fun MainActivity.injectDependencies() {
     DaggerActivityComponent.builder()
-        .mainActivityModule(MainActivityModule(this))
-        .build()
-        .inject(this)
+            .imageLoaderModule(ImageLoaderModule(this))
+            .build()
+            .inject(this)
 
 }
 
 private const val NUM_FRAGMENTS = 2
 
 private class TabsAdapter internal constructor(
-    fragmentManager: FragmentManager
+        fragmentManager: FragmentManager
 ) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {

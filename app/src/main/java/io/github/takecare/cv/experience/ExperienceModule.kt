@@ -2,6 +2,9 @@ package io.github.takecare.cv.experience
 
 import dagger.Module
 import dagger.Provides
+import io.github.takecare.Background
+import io.github.takecare.Foreground
+import io.github.takecare.RxModule
 import io.github.takecare.cv.*
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable

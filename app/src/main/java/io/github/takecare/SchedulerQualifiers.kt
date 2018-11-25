@@ -1,4 +1,4 @@
-package io.github.takecare.cv
+package io.github.takecare
 
 import javax.inject.Qualifier
 

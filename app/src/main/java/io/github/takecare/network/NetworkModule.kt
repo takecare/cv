@@ -1,8 +1,7 @@
-package io.github.takecare.cv
+package io.github.takecare.network
 
 import dagger.Module
 import dagger.Provides
-import io.github.takecare.network.CvService
 
 @Module
 class NetworkModule {
