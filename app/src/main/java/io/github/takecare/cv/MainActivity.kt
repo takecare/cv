@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import io.github.takecare.cv.cover.CoverFragment
 import io.github.takecare.cv.experience.ExperienceFragment
+import io.github.takecare.network.ImageLoader
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
 
     @Inject
     lateinit var presenter: MainPresenter
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +51,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
 
     override fun show(viewModel: MainViewModel) {
         name.text = viewModel.name
-        // TODO load image into profile_image
+        imageLoader.loadAsCircle(viewModel.photoUrl, profile_image)
     }
 
     override fun showError(throwable: Throwable) {
@@ -64,32 +68,32 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
         if (percentageOfLayoutHidden >= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && isAvatarDisplayed) {
             isAvatarDisplayed = false
             profile_image.animate()
-                    .scaleY(0f).scaleX(0f)
-                    .setDuration(200)
-                    .start()
+                .scaleY(0f).scaleX(0f)
+                .setDuration(200)
+                .start()
         }
 
         if (percentageOfLayoutHidden <= PERCENTAGE_AT_WHICH_AVATAR_IS_HIDDEN && !isAvatarDisplayed) {
             isAvatarDisplayed = true
             profile_image.animate()
-                    .scaleY(1f).scaleX(1f)
-                    .start()
+                .scaleY(1f).scaleX(1f)
+                .start()
         }
     }
 }
 
 fun MainActivity.injectDependencies() {
     DaggerActivityComponent.builder()
-            //.mainActivityModule(MainActivityModule()) // TODO remove if not needed
-            .build()
-            .inject(this)
+        .mainActivityModule(MainActivityModule(this))
+        .build()
+        .inject(this)
 
 }
 
 private const val NUM_FRAGMENTS = 2
 
 private class TabsAdapter internal constructor(
-        fragmentManager: FragmentManager
+    fragmentManager: FragmentManager
 ) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
