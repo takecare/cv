@@ -1,6 +1,5 @@
 package io.github.takecare.cv
 
-import android.util.Log
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -22,14 +21,8 @@ class MainPresenter(
                 .observeOn(observeScheduler)
                 .map { MainViewModel(it.name, it.githubUsername, it.photoUrl) }
                 .subscribeBy(
-                        onSuccess = {
-                            view.show(it)
-                            Log.d("RUI", "$it") // TODO remove logging
-                        },
-                        onError = {
-                            view.showError(it)
-                            Log.e("RUI", "$it")
-                        }
+                        onSuccess = { view.show(it) },
+                        onError = { view.showError(it) }
                 )
     }
 

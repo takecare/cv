@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import io.github.takecare.cv.cover.CoverFragment
 import io.github.takecare.cv.experience.ExperienceFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
 
     override fun showError(throwable: Throwable) {
         // TODO: showError not implemented
+        Log.e("RUI", "error: $throwable")
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {

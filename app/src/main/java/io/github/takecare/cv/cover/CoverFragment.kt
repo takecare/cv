@@ -1,22 +1,41 @@
 package io.github.takecare.cv.cover
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.takecare.cv.R
 import kotlinx.android.synthetic.main.fragment_cover.*
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_cover.view.textview as cover_textview
 import kotlinx.android.synthetic.main.item_knowledge.view.textview as knowledge_textview
 import kotlinx.android.synthetic.main.item_link.view.textview as link_textview
 
-class CoverFragment : Fragment() {
+class CoverFragment : Fragment(), CoverView {
 
     companion object {
         fun newInstance() = CoverFragment()
+    }
+
+    @Inject
+    lateinit var presenter: CoverPresenter
+
+    private val coverAdapter = CoverAdapter()
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        injectDependencies()
+    }
+
+    private fun injectDependencies() {
+        DaggerCoverComponent.builder()
+                .build()
+                .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,23 +45,30 @@ class CoverFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         recyclerview.layoutManager = LinearLayoutManager(activity)
-        recyclerview.adapter = CoverAdapter().apply {
-            update(
-                listOf(
-                    CoverItemViewModel.Letter("letter"),
-                    CoverItemViewModel.Link("github", "https://www.google.pt", 0),
-                    CoverItemViewModel.Link("personal webpage", "https://www.google.pt", 0),
-                    CoverItemViewModel.Knowledge("knowledge 1"),
-                    CoverItemViewModel.Knowledge("knowledge 2"),
-                    CoverItemViewModel.Knowledge("knowledge 3")
-                )
-            )
-            notifyDataSetChanged()
-        }
+        recyclerview.adapter = coverAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.startPresenting(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.stopPresenting()
+    }
+
+    override fun show(coverViewModel: CoverViewModel) {
+        coverAdapter.update(coverViewModel.items)
+    }
+
+    override fun showError(throwable: Throwable) {
+        // TODO: showError not implemented
+        Log.e("RUI", "error: $throwable")
     }
 }
 
-class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() {
+class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() { // TODO move to its own file
 
     private val data: MutableList<CoverItemViewModel> = mutableListOf()
 
@@ -85,7 +111,9 @@ class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() {
     }
 
     fun update(items: List<CoverItemViewModel>) {
+        data.clear()
         data.addAll(items)
+        notifyDataSetChanged()
     }
 }
 
