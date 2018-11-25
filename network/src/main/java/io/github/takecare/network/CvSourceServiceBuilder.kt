@@ -20,7 +20,7 @@ private fun moshi(): Moshi {
         .build()
 }
 
-class CvSourceServiceBuilder(
+internal class CvSourceServiceBuilder(
     private val okHttpClient: OkHttpClient = okHttpClient(),
     private val moshi: Moshi = moshi(),
     private val baseUrl: String = BASE_URL

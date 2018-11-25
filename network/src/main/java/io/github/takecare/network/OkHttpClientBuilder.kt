@@ -9,7 +9,7 @@ private fun loggingInterceptor(): HttpLoggingInterceptor {
     return loggingInterceptor
 }
 
-class OkHttpClientBuilder(
+internal class OkHttpClientBuilder(
     private val loggingInterceptor: HttpLoggingInterceptor = loggingInterceptor()
 ) {
 
