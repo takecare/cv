@@ -40,13 +40,13 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
         maxScrollSize = appbar_layout.totalScrollRange
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         presenter.startPresenting(this)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         presenter.stopPresenting()
     }
 

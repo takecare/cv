@@ -44,13 +44,13 @@ class ExperienceFragment : Fragment(), ExperienceView {
         recyclerview.adapter = adapter
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         presenter.startPresenting(this)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         presenter.stopPresenting()
     }
 
