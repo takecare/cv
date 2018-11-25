@@ -7,9 +7,6 @@ import io.reactivex.Single
 import io.github.takecare.network.model.Cv as NetworkCv
 import io.github.takecare.network.model.Experience as NetworkExperience
 
-// TODO caching (in-memory lru cache)
-// TODO map from biz classes to view model ones <- this should be done in/from the presenter instead @RUI
-
 interface CvRepository {
 
     fun cv(): Single<Cv>
