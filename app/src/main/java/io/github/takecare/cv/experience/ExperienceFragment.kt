@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.takecare.SnackbarDisplayer
+import io.github.takecare.cv.CvApplication
 import io.github.takecare.cv.R
 import kotlinx.android.synthetic.main.fragment_experience.*
 import javax.inject.Inject
@@ -26,14 +27,15 @@ class ExperienceFragment : Fragment(), ExperienceView {
 
     private val adapter = ExperienceAdapter()
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        injectDependencies()
+        injectDependencies(context)
     }
 
-    private fun injectDependencies() {
-        DaggerExperienceComponent.builder()
-            .build()
+    private fun injectDependencies(context: Context) {
+        CvApplication.get(context)
+            .componentProvider
+            .experienceComponent()
             .inject(this)
     }
 

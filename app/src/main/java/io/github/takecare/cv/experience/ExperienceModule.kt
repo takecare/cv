@@ -6,11 +6,10 @@ import io.github.takecare.Background
 import io.github.takecare.Foreground
 import io.github.takecare.cv.CvModule
 import io.github.takecare.cv.CvRepository
-import io.github.takecare.cv.ErrorDisplayComponent
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-@Module(includes = [CvModule::class], subcomponents = [ErrorDisplayComponent::class])
+@Module(includes = [CvModule::class])
 class ExperienceModule {
 
     @Provides

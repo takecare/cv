@@ -9,7 +9,7 @@ import io.github.takecare.network.ImageLoaderModule
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-@Module(includes = [CvModule::class, ImageLoaderModule::class], subcomponents = [ErrorDisplayComponent::class])
+@Module(includes = [CvModule::class, ImageLoaderModule::class])
 class MainActivityModule {
 
     @Provides

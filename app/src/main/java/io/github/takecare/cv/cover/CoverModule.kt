@@ -9,7 +9,7 @@ import io.github.takecare.cv.CvRepository
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-@Module(includes = [CvModule::class], subcomponents = [io.github.takecare.cv.ErrorDisplayComponent::class])
+@Module(includes = [CvModule::class])
 class CoverModule {
 
     @Provides

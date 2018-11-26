@@ -5,9 +5,7 @@ import dagger.Provides
 import io.github.takecare.SnackbarDisplayer
 
 @Module
-class ErrorDisplayModule(
-    //private val context: Context // view: View
-) {
+class ErrorDisplayModule {
 
     @Provides
     fun provideSnackbarDisplayer(): SnackbarDisplayer {
