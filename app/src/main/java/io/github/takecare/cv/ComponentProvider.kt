@@ -1,7 +1,9 @@
 package io.github.takecare.cv
 
+import android.app.Activity
 import android.content.Context
 import io.github.takecare.cv.cover.CoverComponent
+import io.github.takecare.cv.cover.CoverModule
 import io.github.takecare.cv.cover.DaggerCoverComponent
 import io.github.takecare.cv.experience.DaggerExperienceComponent
 import io.github.takecare.cv.experience.ExperienceComponent
@@ -11,7 +13,7 @@ interface ComponentProvider {
 
     fun activityComponent(context: Context): ActivityComponent
 
-    fun coverComponent(): CoverComponent
+    fun coverComponent(activity: Activity): CoverComponent
 
     fun experienceComponent(): ExperienceComponent
 }
@@ -24,8 +26,9 @@ class CvComponentProvider : ComponentProvider {
             .build()
     }
 
-    override fun coverComponent(): CoverComponent {
+    override fun coverComponent(activity: Activity): CoverComponent {
         return DaggerCoverComponent.builder()
+            .coverModule(CoverModule(activity))
             .build()
     }
 

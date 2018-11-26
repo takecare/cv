@@ -9,7 +9,9 @@ import kotlinx.android.synthetic.main.item_cover.view.*
 import kotlinx.android.synthetic.main.item_knowledge.view.*
 import kotlinx.android.synthetic.main.item_link.view.*
 
-class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() {
+class CoverAdapter(
+    private val linkOpener: LinkOpener
+) : RecyclerView.Adapter<CoverViewHolder>() {
 
     private val data: MutableList<CoverItemViewModel> = mutableListOf()
 
@@ -22,7 +24,7 @@ class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() {
             }
             CoverViewType.LINK -> {
                 val view = inflater.inflate(R.layout.item_link, parent, false)
-                CoverViewHolder.LinkViewHolder(view)
+                CoverViewHolder.LinkViewHolder(view, linkOpener)
             }
             CoverViewType.KNOWLEDGE -> {
                 val view = inflater.inflate(R.layout.item_knowledge, parent, false)
@@ -67,10 +69,11 @@ sealed class CoverViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    class LinkViewHolder(view: View) : CoverViewHolder(view) {
+    class LinkViewHolder(view: View, private val linkOpener: LinkOpener) : CoverViewHolder(view) {
 
         fun bind(item: CoverItemViewModel.Link) {
             itemView.link_title.text = item.text
+            itemView.setOnClickListener { linkOpener.openLink(item.url) }
         }
     }
 

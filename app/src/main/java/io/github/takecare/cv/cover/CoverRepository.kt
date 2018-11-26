@@ -23,8 +23,10 @@ class CoverRepositoryImpl(private val cvRepository: CvRepository) : CoverReposit
 
     private fun Cv.withListItems(): MutableList<CoverItem> {
         val newItems = cover.items.toMutableList()
-        newItems.add(CoverItem.Link(personalUrl, personalUrl)) // FIXME include readable text instead of url? @RUI
-        newItems.add(CoverItem.Link(githubUsername, githubUsername)) // TODO transform to proper link @RUI
+        newItems.add(CoverItem.Link(personalUrl, personalUrl)) // TODO include readable text instead of url? @RUI
+        newItems.add(CoverItem.Link(githubUsername, linkifyGithubUsername(githubUsername)))
         return newItems
     }
+
+    private fun linkifyGithubUsername(username: String) = "https://github.com/$username"
 }

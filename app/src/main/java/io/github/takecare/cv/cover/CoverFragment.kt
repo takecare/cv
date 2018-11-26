@@ -25,7 +25,8 @@ class CoverFragment : Fragment(), CoverView {
     @Inject
     lateinit var snackbarDislpayer: SnackbarDisplayer
 
-    private val coverAdapter = CoverAdapter()
+    @Inject
+    lateinit var coverAdapter: CoverAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,7 +36,7 @@ class CoverFragment : Fragment(), CoverView {
     private fun injectDependencies(context: Context) {
         CvApplication.get(context)
             .componentProvider
-            .coverComponent()
+            .coverComponent(activity!!)
             .inject(this)
     }
 

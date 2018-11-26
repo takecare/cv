@@ -1,5 +1,7 @@
 package io.github.takecare.cv.cover
 
+import android.app.Activity
+import android.support.customtabs.CustomTabsIntent
 import dagger.Module
 import dagger.Provides
 import io.github.takecare.Background
@@ -10,7 +12,31 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 @Module(includes = [CvModule::class])
-class CoverModule {
+class CoverModule(private val activity: Activity) {
+
+    @Provides
+    @CoverScope
+    fun provideActivity(): Activity {
+        return activity
+    }
+
+    @Provides
+    @CoverScope
+    fun providerCoverAdapter(linkOpener: LinkOpener): CoverAdapter {
+        return CoverAdapter(linkOpener)
+    }
+
+    @Provides
+    @CoverScope
+    fun provideIntentBuilder(): CustomTabsIntent.Builder {
+        return CustomTabsIntent.Builder()
+    }
+
+    @Provides
+    @CoverScope
+    fun provideLinkOpener(activity: Activity, intentBuilder: CustomTabsIntent.Builder): LinkOpener {
+        return CustomTabsLinkOpener(intentBuilder, activity)
+    }
 
     @Provides
     @CoverScope
