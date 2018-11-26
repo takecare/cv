@@ -4,13 +4,12 @@ import dagger.Module
 import dagger.Provides
 import io.github.takecare.Background
 import io.github.takecare.Foreground
-import io.github.takecare.RxModule
 import io.github.takecare.cv.CvModule
 import io.github.takecare.cv.CvRepository
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-@Module(includes = [CvModule::class, RxModule::class])
+@Module(includes = [CvModule::class])
 class ExperienceModule {
 
     @Provides

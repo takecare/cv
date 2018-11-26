@@ -4,11 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.takecare.SnackbarDisplayer
 import io.github.takecare.cv.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_cover.*
 import javax.inject.Inject
 
@@ -20,6 +21,10 @@ class CoverFragment : Fragment(), CoverView {
 
     @Inject
     lateinit var presenter: CoverPresenter
+
+    @Inject
+    lateinit var snackbarDislpayer: SnackbarDisplayer
+
     private val coverAdapter = CoverAdapter()
 
     override fun onAttach(context: Context?) {
@@ -58,7 +63,7 @@ class CoverFragment : Fragment(), CoverView {
     }
 
     override fun showError(throwable: Throwable) {
-        // TODO: showError not implemented
-        Log.e("RUI", "error: $throwable")
+        val message = throwable.message ?: "" // TODO proper default message @RUI
+        snackbarDislpayer.display(coordinator, message)
     }
 }

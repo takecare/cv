@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.takecare.SnackbarDisplayer
 import io.github.takecare.cv.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_experience.*
 import javax.inject.Inject
 
@@ -19,6 +21,10 @@ class ExperienceFragment : Fragment(), ExperienceView {
 
     @Inject
     lateinit var presenter: ExperiencePresenter
+
+    @Inject
+    lateinit var snackbarDislpayer: SnackbarDisplayer
+
     private val adapter = ExperienceAdapter()
 
     override fun onAttach(context: Context?) {
@@ -57,6 +63,7 @@ class ExperienceFragment : Fragment(), ExperienceView {
     }
 
     override fun showError(throwable: Throwable) {
-        // TODO: showError not implemented
+        val message = throwable.message ?: "" // TODO proper default message @RUI
+        snackbarDislpayer.display(coordinator, message)
     }
 }

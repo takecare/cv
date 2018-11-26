@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import io.github.takecare.SnackbarDisplayer
 import io.github.takecare.cv.cover.CoverFragment
 import io.github.takecare.cv.experience.ExperienceFragment
 import io.github.takecare.network.ImageLoader
@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
 
     @Inject
     lateinit var presenter: MainPresenter
+
+    @Inject
+    lateinit var snackbarDislpayer: SnackbarDisplayer
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -55,8 +58,8 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
     }
 
     override fun showError(throwable: Throwable) {
-        // TODO: showError not implemented
-        Log.e("RUI", "error: $throwable")
+        val message = throwable.message ?: "" // TODO proper default message @RUI
+        snackbarDislpayer.display(coordinator, message)
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {

@@ -20,6 +20,7 @@ class CvComponentProvider : ComponentProvider {
 
     override fun activityComponent(context: Context): ActivityComponent {
         return DaggerActivityComponent.builder()
+            .errorDisplayModule(ErrorDisplayModule(context))
             .imageLoaderModule(ImageLoaderModule(context))
             .build()
     }
