@@ -8,10 +8,11 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class CoverPresenter(
     private val coverRepository: CoverRepository,
+    private val linkOpener: LinkOpener,
     private val disposables: CompositeDisposable,
     private val backgroundScheduler: Scheduler,
     private val observeScheduler: Scheduler
-) {
+) : LinkOpener {
 
     private lateinit var view: CoverView
 
@@ -34,6 +35,10 @@ class CoverPresenter(
                 onSuccess = { view.show(it) },
                 onError = { view.showError(it) }
             )
+    }
+
+    override fun openLink(url: String) {
+        linkOpener.openLink(url)
     }
 
     fun stopPresenting() {

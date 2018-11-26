@@ -25,8 +25,7 @@ class CoverFragment : Fragment(), CoverView {
     @Inject
     lateinit var snackbarDislpayer: SnackbarDisplayer
 
-    @Inject
-    lateinit var coverAdapter: CoverAdapter
+    private lateinit var coverAdapter: CoverAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,6 +45,7 @@ class CoverFragment : Fragment(), CoverView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        coverAdapter = CoverAdapter(presenter)
         recyclerview.layoutManager = LinearLayoutManager(activity)
         recyclerview.adapter = coverAdapter
     }

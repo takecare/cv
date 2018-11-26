@@ -22,12 +22,6 @@ class CoverModule(private val activity: Activity) {
 
     @Provides
     @CoverScope
-    fun providerCoverAdapter(linkOpener: LinkOpener): CoverAdapter {
-        return CoverAdapter(linkOpener)
-    }
-
-    @Provides
-    @CoverScope
     fun provideIntentBuilder(): CustomTabsIntent.Builder {
         return CustomTabsIntent.Builder()
     }
@@ -48,6 +42,7 @@ class CoverModule(private val activity: Activity) {
     @CoverScope
     fun provideCoverPresenter(
         coverRepository: CoverRepository,
+        linkOpener: LinkOpener,
         disposables: CompositeDisposable,
         @Background backgroundScheduler: Scheduler,
         @Foreground observeScheduler: Scheduler
@@ -55,6 +50,7 @@ class CoverModule(private val activity: Activity) {
 
         return CoverPresenter(
             coverRepository,
+            linkOpener,
             disposables,
             backgroundScheduler,
             observeScheduler
