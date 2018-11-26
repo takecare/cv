@@ -10,7 +10,6 @@ import android.util.Log
 import io.github.takecare.cv.cover.CoverFragment
 import io.github.takecare.cv.experience.ExperienceFragment
 import io.github.takecare.network.ImageLoader
-import io.github.takecare.network.ImageLoaderModule
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -84,11 +83,10 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
 }
 
 fun MainActivity.injectDependencies() {
-    DaggerActivityComponent.builder()
-        .imageLoaderModule(ImageLoaderModule(this))
-        .build()
+    CvApplication.get(this)
+        .componentProvider
+        .activityComponent(this)
         .inject(this)
-
 }
 
 private const val NUM_FRAGMENTS = 2

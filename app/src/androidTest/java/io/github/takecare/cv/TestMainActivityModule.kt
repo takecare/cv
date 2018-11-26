@@ -10,7 +10,7 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 @Module(includes = [CvModule::class, ImageLoaderModule::class])
-class MainActivityModule {
+class TestMainActivityModule /*: MainActivityModule()*/ {
 
     @Provides
     @ActivityScope
