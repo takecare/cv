@@ -1,16 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:card_view="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/default_card_margin"
+  android:layout_marginLeft="@dimen/default_card_margin"
+  android:layout_marginRight="@dimen/default_card_margin"
+  android:layout_marginBottom="@dimen/default_card_margin"
+  card_view:cardCornerRadius="0dp">
 
-  <TextView
-    android:id="@+id/textview"
-    android:layout_width="wrap_content"
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    android:background="?android:attr/selectableItemBackground"
+    android:minHeight="?listPreferredItemHeight"
+    android:padding="6dp">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+      android:id="@+id/logo"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:contentDescription="@null"
+      android:src="@drawable/ic_work_black_48dp"
+      android:tint="@color/colorPrimary"
+      app:layout_constraintBottom_toBottomOf="@id/link_title"
+      app:layout_constraintEnd_toStartOf="@id/link_title"
+      app:layout_constraintTop_toTopOf="@id/link_title" />
+
+    <TextView
+      android:id="@+id/title"
+      style="@style/ExperienceItem.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      app:layout_constraintStart_toEndOf="@id/logo"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="Company" />
+
+    <TextView
+      android:id="@+id/role"
+      style="@style/ExperienceItem.Role"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="2dp"
+      app:layout_constraintStart_toEndOf="@id/logo"
+      app:layout_constraintTop_toBottomOf="@id/title"
+      tools:text="Senior role" />
+
+    <TextView
+      android:id="@+id/date"
+      style="@style/ExperienceItem.Date"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:gravity="end"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/role"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="25/04/1974 to Present" />
+
+    <TextView
+      android:id="@+id/description"
+      style="@style/ExperienceItem.Description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/logo"
+      tools:text="bla bla bla\nbla bla bla bla bla\nbla bla\nbla bla bla bla bla" />
+
+  </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

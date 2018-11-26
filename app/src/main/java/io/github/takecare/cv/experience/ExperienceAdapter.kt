@@ -5,9 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.takecare.cv.R
+import io.github.takecare.network.ImageLoader
 import kotlinx.android.synthetic.main.item_experience.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ExperienceAdapter : RecyclerView.Adapter<ExperienceViewHolder>() {
+class ExperienceAdapter(
+    private val imageLoader: ImageLoader
+) : RecyclerView.Adapter<ExperienceViewHolder>() {
 
     private val data: MutableList<ExperienceItemViewModel> = mutableListOf()
 
@@ -24,7 +29,7 @@ class ExperienceAdapter : RecyclerView.Adapter<ExperienceViewHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: ExperienceViewHolder, position: Int) {
-        viewHolder.bind(data[position])
+        viewHolder.bind(data[position], imageLoader)
     }
 
     fun update(items: List<ExperienceItemViewModel>) {
@@ -35,7 +40,19 @@ class ExperienceAdapter : RecyclerView.Adapter<ExperienceViewHolder>() {
 }
 
 class ExperienceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(item: ExperienceItemViewModel) {
-        itemView.textview.text = item.name
+    fun bind(item: ExperienceItemViewModel, imageLoader: ImageLoader) {
+        itemView.title.text = item.name
+        itemView.role.text = item.role
+
+        val fromDate = item.from.readable()
+        val toDate = item.to?.readable() ?: "Present" // FIXME @RUI
+        itemView.date.text = itemView.context.resources.getString(R.string.date_format, fromDate, toDate)
+
+        item.logoUrl?.let { imageLoader.loadAsCircle(it, itemView.logo) }
+    }
+
+    private fun Date.readable(): String {
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return simpleDateFormat.format(this)
     }
 }

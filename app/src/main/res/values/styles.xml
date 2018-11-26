@@ -30,4 +30,26 @@
     <item name="android:textSize">14sp</item>
   </style>
 
+  <style name="ExperienceItem" />
+
+  <style name="ExperienceItem.Title">
+    <item name="android:textSize">14sp</item>
+    <item name="android:singleLine">true</item>
+  </style>
+
+  <style name="ExperienceItem.Role">
+    <item name="android:textSize">16sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:singleLine">true</item>
+  </style>
+
+  <style name="ExperienceItem.Date">
+    <item name="android:textSize">12sp</item>
+    <item name="android:singleLine">true</item>
+  </style>
+
+  <style name="ExperienceItem.Description">
+    <item name="android:textSize">14sp</item>
+  </style>
+
 </resources>

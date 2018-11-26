@@ -15,7 +15,7 @@ interface ComponentProvider {
 
     fun coverComponent(activity: Activity): CoverComponent
 
-    fun experienceComponent(): ExperienceComponent
+    fun experienceComponent(context: Context): ExperienceComponent
 }
 
 class CvComponentProvider : ComponentProvider {
@@ -32,8 +32,9 @@ class CvComponentProvider : ComponentProvider {
             .build()
     }
 
-    override fun experienceComponent(): ExperienceComponent {
+    override fun experienceComponent(context: Context): ExperienceComponent {
         return DaggerExperienceComponent.builder()
+            .imageLoaderModule(ImageLoaderModule(context))
             .build()
     }
 }

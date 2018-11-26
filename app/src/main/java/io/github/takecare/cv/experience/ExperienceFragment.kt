@@ -25,7 +25,8 @@ class ExperienceFragment : Fragment(), ExperienceView {
     @Inject
     lateinit var snackbarDislpayer: SnackbarDisplayer
 
-    private val adapter = ExperienceAdapter()
+    @Inject
+    lateinit var adapter: ExperienceAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,7 +36,7 @@ class ExperienceFragment : Fragment(), ExperienceView {
     private fun injectDependencies(context: Context) {
         CvApplication.get(context)
             .componentProvider
-            .experienceComponent()
+            .experienceComponent(context)
             .inject(this)
     }
 

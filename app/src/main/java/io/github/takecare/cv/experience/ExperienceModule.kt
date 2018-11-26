@@ -6,11 +6,18 @@ import io.github.takecare.Background
 import io.github.takecare.Foreground
 import io.github.takecare.cv.CvModule
 import io.github.takecare.cv.CvRepository
+import io.github.takecare.network.ImageLoader
+import io.github.takecare.network.ImageLoaderModule
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-@Module(includes = [CvModule::class])
+@Module(includes = [CvModule::class, ImageLoaderModule::class])
 class ExperienceModule {
+
+    @Provides
+    fun provideExperienceAdapter(imageLoader: ImageLoader): ExperienceAdapter {
+        return ExperienceAdapter(imageLoader)
+    }
 
     @Provides
     @ExperienceScope

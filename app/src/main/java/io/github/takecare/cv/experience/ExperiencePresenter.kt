@@ -23,12 +23,12 @@ class ExperiencePresenter(
                         it.name,
                         it.logoUrl,
                         it.role,
-                        it.from.toString(),
-                        it.to.toString(),
+                        it.from,
+                        it.to,
                         it.description
                     )
                 }
-                ExperienceViewModel(items)
+                ExperienceViewModel(items.reversed())
             }
             .subscribeOn(backgroundScheduler)
             .observeOn(observeScheduler)
