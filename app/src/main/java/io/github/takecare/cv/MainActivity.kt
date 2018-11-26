@@ -35,12 +35,17 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
 
         injectDependencies()
 
-        viewpager.adapter = TabsAdapter(supportFragmentManager)
+        viewpager.adapter = TabsAdapter(supportFragmentManager, tabTitles())
         tablayout.setupWithViewPager(viewpager)
 
         appbar_layout.addOnOffsetChangedListener(this)
         maxScrollSize = appbar_layout.totalScrollRange
     }
+
+    private fun tabTitles(): List<String> = listOf(
+        resources.getString(R.string.first_tab_title),
+        resources.getString(R.string.second_tab_title)
+    )
 
     override fun onStart() {
         super.onStart()
@@ -58,7 +63,7 @@ class MainActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, 
     }
 
     override fun showError(throwable: Throwable) {
-        val message = throwable.message ?: "" // TODO proper default message @RUI
+        val message = throwable.message ?: resources.getString(R.string.default_error_message)
         snackbarDislpayer.display(coordinator, message)
     }
 
@@ -95,7 +100,8 @@ fun MainActivity.injectDependencies() {
 private const val NUM_FRAGMENTS = 2
 
 private class TabsAdapter internal constructor(
-    fragmentManager: FragmentManager
+    fragmentManager: FragmentManager,
+    private val tabTitles: List<String>
 ) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
@@ -110,7 +116,7 @@ private class TabsAdapter internal constructor(
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return "Tab " + position.toString()
+    override fun getPageTitle(position: Int): CharSequence {
+        return tabTitles[position]
     }
 }
