@@ -3,7 +3,7 @@ package io.github.takecare.cv.cover
 import android.support.annotation.DrawableRes
 
 data class CoverViewModel(
-        val items: List<CoverItemViewModel>
+    val items: List<CoverItemViewModel>
 )
 
 sealed class CoverItemViewModel {

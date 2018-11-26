@@ -9,8 +9,8 @@ import io.reactivex.schedulers.Schedulers
 
 @Module
 class RxModule(
-        private val backgroundScheduler: Scheduler = Schedulers.io(),
-        private val observeScheduler: Scheduler = AndroidSchedulers.mainThread()
+    private val backgroundScheduler: Scheduler = Schedulers.io(),
+    private val observeScheduler: Scheduler = AndroidSchedulers.mainThread()
 ) {
 
     @Provides

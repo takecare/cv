@@ -6,10 +6,10 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 
 class MainPresenter(
-        private val cvRepository: CvRepository,
-        private val disposables: CompositeDisposable,
-        private val backgroundScheduler: Scheduler,
-        private val observeScheduler: Scheduler
+    private val cvRepository: CvRepository,
+    private val disposables: CompositeDisposable,
+    private val backgroundScheduler: Scheduler,
+    private val observeScheduler: Scheduler
 ) {
 
     private lateinit var view: MainView
@@ -17,13 +17,13 @@ class MainPresenter(
     fun startPresenting(view: MainView) {
         this.view = view
         disposables += cvRepository.cv()
-                .subscribeOn(backgroundScheduler)
-                .observeOn(observeScheduler)
-                .map { MainViewModel(it.name, it.githubUsername, it.photoUrl) }
-                .subscribeBy(
-                        onSuccess = { view.show(it) },
-                        onError = { view.showError(it) }
-                )
+            .subscribeOn(backgroundScheduler)
+            .observeOn(observeScheduler)
+            .map { MainViewModel(it.name, it.githubUsername, it.photoUrl) }
+            .subscribeBy(
+                onSuccess = { view.show(it) },
+                onError = { view.showError(it) }
+            )
     }
 
     fun stopPresenting() {

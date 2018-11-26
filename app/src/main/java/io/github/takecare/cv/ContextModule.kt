@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 
+// TODO delete @RUI
 @Module
 class ContextModule(
     private val context: Context

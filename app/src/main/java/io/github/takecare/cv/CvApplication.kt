@@ -11,6 +11,6 @@ class CvApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         component = DaggerApplicationComponent.builder()
-                .build()
+            .build()
     }
 }

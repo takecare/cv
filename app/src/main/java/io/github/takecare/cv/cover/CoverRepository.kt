@@ -15,16 +15,16 @@ class CoverRepositoryImpl(private val cvRepository: CvRepository) : CoverReposit
 
     override fun cover(): Single<Cover> {
         return cvRepository.cv()
-                .map {
-                    val newItems = it.withListItems()
-                    Cover(newItems)
-                }
+            .map {
+                val newItems = it.withListItems()
+                Cover(newItems)
+            }
     }
 
     private fun Cv.withListItems(): MutableList<CoverItem> {
         val newItems = cover.items.toMutableList()
-        newItems.add(CoverItem.Link(personalUrl, personalUrl)) // FIXME include readable text instead of url?
-        newItems.add(CoverItem.Link(githubUsername, githubUsername)) // TODO transform to proper link
+        newItems.add(CoverItem.Link(personalUrl, personalUrl)) // FIXME include readable text instead of url? @RUI
+        newItems.add(CoverItem.Link(githubUsername, githubUsername)) // TODO transform to proper link @RUI
         return newItems
     }
 }

@@ -17,17 +17,17 @@ class MainActivityModule(
     @Provides
     @ActivityScope
     fun providePresenter(
-            cvRepository: CvRepository,
-            disposables: CompositeDisposable,
-            @Background backgroundScheduler: Scheduler,
-            @Foreground observeScheduler: Scheduler
+        cvRepository: CvRepository,
+        disposables: CompositeDisposable,
+        @Background backgroundScheduler: Scheduler,
+        @Foreground observeScheduler: Scheduler
     ): MainPresenter {
 
         return MainPresenter(
-                cvRepository,
-                disposables,
-                backgroundScheduler,
-                observeScheduler
+            cvRepository,
+            disposables,
+            backgroundScheduler,
+            observeScheduler
         )
     }
 }

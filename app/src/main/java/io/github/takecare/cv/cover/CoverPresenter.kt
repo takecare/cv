@@ -7,10 +7,10 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 
 class CoverPresenter(
-        private val coverRepository: CoverRepository,
-        private val disposables: CompositeDisposable,
-        private val backgroundScheduler: Scheduler,
-        private val observeScheduler: Scheduler
+    private val coverRepository: CoverRepository,
+    private val disposables: CompositeDisposable,
+    private val backgroundScheduler: Scheduler,
+    private val observeScheduler: Scheduler
 ) {
 
     private lateinit var view: CoverView
@@ -18,22 +18,22 @@ class CoverPresenter(
     fun startPresenting(view: CoverView) {
         this.view = view
         disposables += coverRepository.cover()
-                .map { cover ->
-                    val items = cover.items.map {
-                        when (it) {
-                            is CoverItem.Link -> CoverItemViewModel.Link(it.text, it.url, 0)
-                            is CoverItem.Letter -> CoverItemViewModel.Letter(it.text)
-                            is CoverItem.Knowledge -> CoverItemViewModel.Knowledge(it.title, it.description)
-                        }
+            .map { cover ->
+                val items = cover.items.map {
+                    when (it) {
+                        is CoverItem.Link -> CoverItemViewModel.Link(it.text, it.url, 0) // TODO proper drawable @RUI
+                        is CoverItem.Letter -> CoverItemViewModel.Letter(it.text)
+                        is CoverItem.Knowledge -> CoverItemViewModel.Knowledge(it.title, it.description)
                     }
-                    CoverViewModel(items)
                 }
-                .subscribeOn(backgroundScheduler)
-                .observeOn(observeScheduler)
-                .subscribeBy(
-                        onSuccess = { view.show(it) },
-                        onError = { view.showError(it) }
-                )
+                CoverViewModel(items)
+            }
+            .subscribeOn(backgroundScheduler)
+            .observeOn(observeScheduler)
+            .subscribeBy(
+                onSuccess = { view.show(it) },
+                onError = { view.showError(it) }
+            )
     }
 
     fun stopPresenting() {

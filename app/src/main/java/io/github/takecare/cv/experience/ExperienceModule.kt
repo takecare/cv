@@ -5,7 +5,8 @@ import dagger.Provides
 import io.github.takecare.Background
 import io.github.takecare.Foreground
 import io.github.takecare.RxModule
-import io.github.takecare.cv.*
+import io.github.takecare.cv.CvModule
+import io.github.takecare.cv.CvRepository
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -21,10 +22,10 @@ class ExperienceModule {
     @Provides
     @ExperienceScope
     fun provideExperiencePresenter(
-            experienceRepository: ExperienceRepository,
-            disposables: CompositeDisposable,
-            @Background backgroundScheduler: Scheduler,
-            @Foreground observeScheduler: Scheduler
+        experienceRepository: ExperienceRepository,
+        disposables: CompositeDisposable,
+        @Background backgroundScheduler: Scheduler,
+        @Foreground observeScheduler: Scheduler
     ): ExperiencePresenter {
 
         return ExperiencePresenter(experienceRepository, disposables, backgroundScheduler, observeScheduler)

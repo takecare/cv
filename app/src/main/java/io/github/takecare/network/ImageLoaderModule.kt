@@ -8,7 +8,7 @@ import io.github.takecare.ActivityScope
 
 @Module
 class ImageLoaderModule(
-        private val context: Context
+    private val context: Context
 ) {
 
     @Provides

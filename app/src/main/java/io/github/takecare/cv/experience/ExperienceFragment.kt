@@ -28,8 +28,8 @@ class ExperienceFragment : Fragment(), ExperienceView {
 
     private fun injectDependencies() {
         DaggerExperienceComponent.builder()
-                .build()
-                .inject(this)
+            .build()
+            .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
