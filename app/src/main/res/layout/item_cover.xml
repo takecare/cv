@@ -1,16 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:card_view="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/default_card_margin"
+  android:layout_marginLeft="@dimen/default_card_margin"
+  android:layout_marginRight="@dimen/default_card_margin"
+  android:layout_marginBottom="@dimen/default_card_margin"
+  android:minHeight="?android:listPreferredItemHeight"
+  card_view:cardCornerRadius="0dp">-->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:card_view="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:layout_marginStart="4dp"
+  android:layout_marginEnd="4dp"
+  android:layout_marginTop="12dp"
+  android:layout_marginBottom="12dp"
+  android:minHeight="?android:listPreferredItemHeight">
 
   <TextView
-    android:id="@+id/textview"
-    android:layout_width="wrap_content"
+    android:id="@+id/cover"
+    style="@style/CoverItem.Letter"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
+    android:gravity="start"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="bla bla bla\nbla bla\nbla bla bla\nbla\nbla bla bla" />
 
-</android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout><!--</android.support.v7.widget.CardView>-->

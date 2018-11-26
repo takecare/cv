@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.takecare.cv.R
-import kotlinx.android.synthetic.main.item_cover.view.textview as cover_textview
-import kotlinx.android.synthetic.main.item_knowledge.view.textview as knowledge_textview
-import kotlinx.android.synthetic.main.item_link.view.textview as link_textview
+import kotlinx.android.synthetic.main.item_cover.view.*
+import kotlinx.android.synthetic.main.item_knowledge.view.*
+import kotlinx.android.synthetic.main.item_link.view.*
 
 class CoverAdapter : RecyclerView.Adapter<CoverViewHolder>() {
 
@@ -63,21 +63,22 @@ sealed class CoverViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     class LetterViewHolder(view: View) : CoverViewHolder(view) {
 
         fun bind(item: CoverItemViewModel.Letter) {
-            itemView.cover_textview.text = item.text
+            itemView.cover.text = item.text
         }
     }
 
     class LinkViewHolder(view: View) : CoverViewHolder(view) {
 
         fun bind(item: CoverItemViewModel.Link) {
-            itemView.link_textview.text = item.text
+            itemView.link_title.text = item.text
         }
     }
 
     class KnowledgeViewHolder(view: View) : CoverViewHolder(view) {
 
         fun bind(item: CoverItemViewModel.Knowledge) {
-            itemView.knowledge_textview.text = item.text
+            itemView.knowledge_title.text = item.title
+            itemView.knowledge_content.text = item.text
         }
     }
 }

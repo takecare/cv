@@ -13,7 +13,7 @@ class ExperienceAdapter : RecyclerView.Adapter<ExperienceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): ExperienceViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_cover, parent, false)
+        val view = inflater.inflate(R.layout.item_experience, parent, false)
         return ExperienceViewHolder(view)
     }
 

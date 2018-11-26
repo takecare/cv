@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:card_view="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="?listPreferredItemHeight"
+  android:layout_marginTop="@dimen/default_card_margin"
+  android:layout_marginLeft="@dimen/default_card_margin"
+  android:layout_marginRight="@dimen/default_card_margin"
+  android:layout_marginBottom="@dimen/default_card_margin"
+  android:background="@android:color/holo_red_light"
+  card_view:cardCornerRadius="0dp">
 
-  <TextView
-    android:id="@+id/textview"
-    android:layout_width="wrap_content"
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    android:layout_margin="6dp">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+      android:id="@+id/link_icon"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:contentDescription="@null"
+      android:src="@drawable/ic_link_black_48dp"
+      app:layout_constraintBottom_toBottomOf="@id/link_title"
+      app:layout_constraintEnd_toStartOf="@id/link_title"
+      app:layout_constraintTop_toTopOf="@id/link_title" />
+
+    <TextView
+      android:id="@+id/link_title"
+      style="@style/CoverItem.Link"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@id/link_icon"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="A mega hiper cool link!" />
+
+  </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

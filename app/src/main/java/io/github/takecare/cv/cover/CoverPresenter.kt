@@ -26,7 +26,7 @@ class CoverPresenter(
                         is CoverItem.Knowledge -> CoverItemViewModel.Knowledge(it.title, it.description)
                     }
                 }
-                CoverViewModel(items)
+                CoverViewModel(items.reversed())
             }
             .subscribeOn(backgroundScheduler)
             .observeOn(observeScheduler)
