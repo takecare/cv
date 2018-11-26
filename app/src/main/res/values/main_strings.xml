@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="first_tab_title">@string/experience</string>
+  <string name="second_tab_title">@string/skills</string>
+  <string name="tagline">@string/work_experience</string>
+</resources>

@@ -23,6 +23,7 @@
       android:layout_height="48dp"
       android:contentDescription="@null"
       android:src="@drawable/ic_link_black_48dp"
+      android:tint="@color/colorPrimary"
       app:layout_constraintBottom_toBottomOf="@id/link_title"
       app:layout_constraintEnd_toStartOf="@id/link_title"
       app:layout_constraintTop_toTopOf="@id/link_title" />
