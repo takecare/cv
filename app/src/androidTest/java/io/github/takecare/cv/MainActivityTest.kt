@@ -50,8 +50,7 @@ class MainActivityTest {
 
 //        onView(withId(R.id.articles_recyclerview)).check { view, _ ->
 //            val recyclerView = view as RecyclerView
-//            assertThat(recyclerView.adapter?.itemCount).isEqualTo(fakeArticles.size)
+//            assertThat(recyclerView.adapter?.itemCount).isEqualTo(fakeData.size)
 //        }
     }
-
 }
