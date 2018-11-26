@@ -1,9 +1,8 @@
 package io.github.takecare.cv.cover
 
 import dagger.Component
-import io.github.takecare.cv.ErrorDisplayModule
 
-@Component(modules = [CoverModule::class, ErrorDisplayModule::class])
+@Component(modules = [CoverModule::class])
 @CoverScope
 interface CoverComponent {
 
