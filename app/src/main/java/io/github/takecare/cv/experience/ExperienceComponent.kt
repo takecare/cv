@@ -1,9 +1,9 @@
 package io.github.takecare.cv.experience
 
 import dagger.Component
-import io.github.takecare.cv.ErrorDisplayComponent
+import io.github.takecare.cv.ErrorDisplayModule
 
-@Component(modules = [ExperienceModule::class], dependencies = [ErrorDisplayComponent::class])
+@Component(modules = [ExperienceModule::class, ErrorDisplayModule::class])
 @ExperienceScope
 interface ExperienceComponent {
 

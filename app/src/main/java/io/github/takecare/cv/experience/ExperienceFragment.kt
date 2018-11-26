@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.takecare.SnackbarDisplayer
 import io.github.takecare.cv.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_experience.*
 import javax.inject.Inject
 
@@ -64,6 +63,6 @@ class ExperienceFragment : Fragment(), ExperienceView {
 
     override fun showError(throwable: Throwable) {
         val message = throwable.message ?: "" // TODO proper default message @RUI
-        snackbarDislpayer.display(coordinator, message)
+        view?.let { snackbarDislpayer.display(it, message) }
     }
 }

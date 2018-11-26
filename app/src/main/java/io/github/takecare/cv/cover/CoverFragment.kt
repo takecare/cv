@@ -64,6 +64,6 @@ class CoverFragment : Fragment(), CoverView {
 
     override fun showError(throwable: Throwable) {
         val message = throwable.message ?: "" // TODO proper default message @RUI
-        snackbarDislpayer.display(coordinator, message)
+        view?.let { snackbarDislpayer.display(it, message) }
     }
 }
