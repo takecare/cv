@@ -47,7 +47,7 @@ interface ExperienceView {
 
     fun show(experienceViewModel: ExperienceViewModel)
 
-    // TODO loading
+    // TODO loading state
 
     fun showError(throwable: Throwable)
 }

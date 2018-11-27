@@ -16,7 +16,6 @@ internal class OkHttpClientBuilder(
     fun build(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            //.cache() // TODO
             .build()
     }
 }

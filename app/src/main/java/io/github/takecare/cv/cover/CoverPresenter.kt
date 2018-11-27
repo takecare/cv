@@ -23,7 +23,8 @@ class CoverPresenter(
             .map { cover ->
                 val items = cover.items.map {
                     when (it) {
-                        is CoverItem.Link -> CoverItemViewModel.Link(it.text, it.url, 0) // TODO proper drawable @RUI
+                        // TODO proper drawable
+                        is CoverItem.Link -> CoverItemViewModel.Link(it.text, it.url, 0)
                         is CoverItem.Letter -> CoverItemViewModel.Letter(it.text)
                         is CoverItem.Knowledge -> CoverItemViewModel.Knowledge(it.title, it.description)
                     }
