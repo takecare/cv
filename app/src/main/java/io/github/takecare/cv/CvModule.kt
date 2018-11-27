@@ -2,6 +2,7 @@ package io.github.takecare.cv
 
 import dagger.Module
 import dagger.Provides
+import io.github.takecare.ActivityScope
 import io.github.takecare.RxModule
 import io.github.takecare.network.CvService
 import io.github.takecare.network.NetworkModule
@@ -10,6 +11,7 @@ import io.github.takecare.network.NetworkModule
 class CvModule {
 
     @Provides
+    @ActivityScope
     fun provideCvRepository(cvService: CvService): CvRepository {
         return CvRepositoryImpl(cvService)
     }

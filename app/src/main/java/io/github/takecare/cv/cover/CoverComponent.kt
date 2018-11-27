@@ -1,10 +1,10 @@
 package io.github.takecare.cv.cover
 
 import dagger.Component
-import io.github.takecare.cv.ErrorDisplayModule
+import io.github.takecare.cv.MainActivityComponent
 
-@Component(modules = [CoverModule::class, ErrorDisplayModule::class])
 @CoverScope
+@Component(modules = [CoverModule::class], dependencies = [MainActivityComponent::class])
 interface CoverComponent {
 
     fun inject(fragment: CoverFragment)
