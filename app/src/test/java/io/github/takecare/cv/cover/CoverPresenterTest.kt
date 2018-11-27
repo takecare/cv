@@ -19,6 +19,9 @@ class CoverPresenterTest {
     @Mock
     private lateinit var view: CoverView
 
+    @Mock
+    private lateinit var linkOpener: LinkOpener
+
     private lateinit var coverPresenter: CoverPresenter
 
     @Before
@@ -26,6 +29,7 @@ class CoverPresenterTest {
         initMocks(this)
         coverPresenter = CoverPresenter(
             coverRepository,
+            linkOpener,
             CompositeDisposable(),
             Schedulers.trampoline(),
             Schedulers.trampoline()
@@ -47,6 +51,16 @@ class CoverPresenterTest {
                 )
             )
         )
+    }
+
+    @Test
+    fun `opening a link is routed through link opener`() {
+        whenever(coverRepository.cover()).thenReturn(Single.just(cover()))
+        coverPresenter.startPresenting(view)
+
+        coverPresenter.openLink("http://www.link")
+
+        verify(linkOpener).openLink("http://www.link")
     }
 
     @Test

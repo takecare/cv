@@ -19,6 +19,7 @@ class CoverPresenter(
     fun startPresenting(view: CoverView) {
         this.view = view
         disposables += coverRepository.cover()
+            .subscribeOn(backgroundScheduler)
             .map { cover ->
                 val items = cover.items.map {
                     when (it) {
@@ -29,7 +30,6 @@ class CoverPresenter(
                 }
                 CoverViewModel(items.reversed())
             }
-            .subscribeOn(backgroundScheduler)
             .observeOn(observeScheduler)
             .subscribeBy(
                 onSuccess = { view.show(it) },
