@@ -12,25 +12,37 @@ interface CvRepository {
     fun cv(): Single<Cv>
 }
 
-data class Cached<T>(var value: T? = null)
+data class Cached<T>(var value: T? = null) {
+    fun hasValue() = value != null
+}
 
 class CvRepositoryImpl(
     private val cvService: CvService
 ) : CvRepository {
 
-    private val cache = Cached<Cv>()
+    private val cache = Cached<Single<Cv>>()
 
     override fun cv(): Single<Cv> {
         cache.value?.let {
-            return Single.just(it)
+            return it
         }
-        return fetch()
-            .cache()
-            .doOnSuccess { cache.value = it }
-            .doOnError { cache.value = null }
+        return cacheSingle(fetch())
+    }
+
+    private fun cacheSingle(single: Single<Cv>): Single<Cv> {
+        if (!cache.hasValue()) {
+            cache.value = single
+        }
+        return cache.value!!
     }
 
     private fun fetch(): Single<Cv> {
+        return fetchFromNetwork()
+            .cache()
+            .doOnError { cache.value = null }
+    }
+
+    private fun fetchFromNetwork(): Single<Cv> {
         return cvService.getCv()
             .map { networkModel ->
                 Cv(
