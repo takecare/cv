@@ -2,7 +2,6 @@ package io.github.takecare.cv
 
 import dagger.Module
 import dagger.Provides
-import io.github.takecare.ActivityScope
 import io.github.takecare.Background
 import io.github.takecare.Foreground
 import io.github.takecare.network.ImageLoaderModule
@@ -13,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 class MainActivityModule {
 
     @Provides
-    @ActivityScope
+    @MainActivityScope
     fun providePresenter(
         cvRepository: CvRepository,
         disposables: CompositeDisposable,

@@ -1,14 +1,13 @@
 package io.github.takecare.cv
 
 import dagger.Component
-import io.github.takecare.ActivityScope
 import io.github.takecare.Background
 import io.github.takecare.Foreground
 import io.github.takecare.SnackbarDisplayer
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-@ActivityScope
+@MainActivityScope
 @Component(modules = [MainActivityModule::class, ErrorDisplayModule::class])
 interface MainActivityComponent {
 
