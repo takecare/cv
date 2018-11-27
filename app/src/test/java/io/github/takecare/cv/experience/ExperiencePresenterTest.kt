@@ -10,8 +10,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations.initMocks
-import java.time.Instant
-import java.util.*
 
 class ExperiencePresenterTest {
 
@@ -36,7 +34,8 @@ class ExperiencePresenterTest {
 
     @Test
     fun `experience view model is displayed through view`() {
-        whenever(experienceRepository.experience()).thenReturn(Single.just(experience()))
+        val experience = experience()
+        whenever(experienceRepository.experience()).thenReturn(Single.just(experience))
 
         experiencePresenter.startPresenting(view)
 
@@ -44,14 +43,14 @@ class ExperiencePresenterTest {
             ExperienceViewModel(
                 listOf(
                     ExperienceItemViewModel(
-                        "name",
-                        "logoUrl",
-                        "role",
-                        Date.from(Instant.now()).toString(),
-                        Date.from(Instant.now()).toString(),
-                        "description"
+                        experience.items[0].name,
+                        experience.items[0].logoUrl,
+                        experience.items[0].role,
+                        experience.items[0].from,
+                        experience.items[0].to,
+                        experience.items[0].description
                     )
-                )
+                ).reversed()
             )
         )
     }

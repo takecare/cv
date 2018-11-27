@@ -17,6 +17,7 @@ class ExperiencePresenter(
     fun startPresenting(view: ExperienceView) {
         this.view = view
         disposables += experienceRepository.experience()
+            .subscribeOn(backgroundScheduler)
             .map { experience ->
                 val items = experience.items.map {
                     ExperienceItemViewModel(
@@ -30,7 +31,6 @@ class ExperiencePresenter(
                 }
                 ExperienceViewModel(items.reversed())
             }
-            .subscribeOn(backgroundScheduler)
             .observeOn(observeScheduler)
             .subscribeBy(
                 onSuccess = { view.show(it) },
