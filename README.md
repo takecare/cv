@@ -1,3 +1,5 @@
+For privacy reasons, the data currently displayed is dummy data. This can be changed easily however, by pointing to another source of data (another gist).
+
 ### TO DO
 
 - [x] Basic CI configuration (free tier)
