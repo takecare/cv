@@ -48,7 +48,7 @@ class CoverPresenterTest {
                     CoverItemViewModel.Letter("cover"),
                     CoverItemViewModel.Link("link", "link", 0),
                     CoverItemViewModel.Knowledge("title", "description")
-                )
+                ).reversed()
             )
         )
     }

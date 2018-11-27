@@ -18,8 +18,8 @@ class MainPresenter(
         this.view = view
         disposables += cvRepository.cv()
             .subscribeOn(backgroundScheduler)
-            .observeOn(observeScheduler)
             .map { MainViewModel(it.name, it.githubUsername, it.photoUrl) }
+            .observeOn(observeScheduler)
             .subscribeBy(
                 onSuccess = { view.show(it) },
                 onError = { view.showError(it) }

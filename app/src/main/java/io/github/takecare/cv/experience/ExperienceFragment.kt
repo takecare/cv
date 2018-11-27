@@ -46,8 +46,8 @@ class ExperienceFragment : Fragment(), ExperienceView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerview.layoutManager = LinearLayoutManager(activity)
-        recyclerview.adapter = adapter
+        experience_recyclerview.layoutManager = LinearLayoutManager(activity)
+        experience_recyclerview.adapter = adapter
     }
 
     override fun onStart() {

@@ -49,8 +49,8 @@ class CoverRepositoryTest {
             .doOnSuccess { coverIems = it.items }
             .test()
 
-        val personal = coverIems.find { it -> it is CoverItem.Link && it.url == cv.githubUsername }
-        assertTrue(personal != null)
+        val link = coverIems.find { it -> it is CoverItem.Link && it.url.contains(cv.githubUsername) }
+        assertTrue(link != null)
     }
 
     @Test

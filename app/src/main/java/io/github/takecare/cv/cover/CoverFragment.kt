@@ -46,8 +46,8 @@ class CoverFragment : Fragment(), CoverView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         coverAdapter = CoverAdapter(presenter)
-        recyclerview.layoutManager = LinearLayoutManager(activity)
-        recyclerview.adapter = coverAdapter
+        cover_recyclerview.layoutManager = LinearLayoutManager(activity)
+        cover_recyclerview.adapter = coverAdapter
     }
 
     override fun onStart() {

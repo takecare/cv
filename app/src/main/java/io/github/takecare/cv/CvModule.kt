@@ -7,11 +7,11 @@ import io.github.takecare.network.CvService
 import io.github.takecare.network.NetworkModule
 
 @Module(includes = [NetworkModule::class, RxModule::class])
-class CvModule {
+class CvModule(val cvRepository: CvRepository? = null) {
 
     @Provides
     @MainActivityScope
     fun provideCvRepository(cvService: CvService): CvRepository {
-        return CvRepositoryImpl(cvService)
+        return cvRepository ?: CvRepositoryImpl(cvService)
     }
 }

@@ -28,6 +28,6 @@ class CvApplication : Application() {
         component = DaggerApplicationComponent.builder()
             .build()
 
-        componentProvider = CvComponentProvider()
+        componentProvider = ComponentProviderHolder.createComponentProvider()
     }
 }
